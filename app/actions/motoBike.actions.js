@@ -13,7 +13,7 @@ import loading from './loading.action';
 const motobikesDB = new Datastore({ filename: 'data/motobikes.json', autoload: true });
 
 export const getAll = () => async dispatch => {
-    try{
+    try{            
         let data
         await dispatch(loading());
         if(localStorage.getItem('jwt')){
@@ -39,8 +39,8 @@ export const addMotoBike = (dt, func) => async dispatch => {
         await dispatch(loading());
         if(localStorage.getItem('jwt')){
             await setAuthHeader(localStorage.getItem('jwt'));
-            const motoBike = await callApi('post', '/motoBikes/create', data);
-            data = vehicle.data
+            const motoBike = await callApi('post', '/motoBikes/create', dt);
+            data = motoBike.data;
         }else{
             data = await motobikesDB.insert({...dt});
         }

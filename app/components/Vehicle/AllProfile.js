@@ -1,4 +1,3 @@
-
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
@@ -21,7 +20,11 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Loading from '../Loading';
+import renderToDocx from '../../utils/renderToDocx';
 
 const useStyles1 = makeStyles(theme => ({
   root: {
@@ -134,11 +137,15 @@ function AllProfile(props) {
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [open, setOpen] = React.useState(false);
   const { vehicles, deleteVehicle, setValue, selectVehicle } = props;
   const emptyRows =
     rowsPerPage -
     Math.min(rowsPerPage, vehicles.data.length - page * rowsPerPage);
   const [key, changeKey] = React.useState('');
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleChange = e => {
     changeKey(e.target.value);
   };
@@ -219,10 +226,11 @@ function AllProfile(props) {
     if (value < 6 || value == 6) {
       setRowsPerPage(value);
     }else{
-      setRowsPerPage(6)
+      setRowsPerPage(5)
     }
   }, [value]);
   return (
+    <div style={{display: 'flex', justifyContent: 'center', alignItems:'center', flexDirection: 'column'}}>
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
         <Typography style={{ textAlign: 'center' }} variant="h4">
@@ -306,6 +314,50 @@ function AllProfile(props) {
         />
       </div>
     </Paper>
+    <Button
+            variant="outlined"
+            style = {{marginTop: 20}}
+            size="small"
+            color="primary"
+            className={classes.margin}
+            onClick={() => {
+              setOpen(true);
+              
+              renderToDocx({
+                "vehicles" : [
+                  ...vehicles.data.filter(vehicle => {
+                    return (
+                      vehicle.brand.indexOf(key) !== -1 ||
+                      vehicle.type.indexOf(key) !== -1 ||
+                      vehicle.number.indexOf(key) !== -1 ||
+                      vehicle.fuel == key
+                    );
+                  })
+                ]
+              }, 'vehicles.docx')
+            }
+          
+          }
+          >
+            Xuất danh sách ra văn bản
+          </Button>
+          <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title" style={{ textAlign: 'center' }}>
+            {`Đã xuât ra văn bản. Truy cập đường dẫn C:/ để tìm file mới tạo . Cảm ơn!`}
+          </DialogTitle>
+
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Đã rõ
+            </Button>
+          </DialogActions>
+        </Dialog>
+    </div>
   );
 }
 export default AllProfile;

@@ -124,6 +124,10 @@ const currencies5 = [
     label: 'Sử dụng thường xuyên'
   },
   {
+    value: 'Bảo quản SSCĐ',
+    label: 'Bảo quản SSCĐ'
+  },
+  {
     value: 'Niêm cất ngắn hạn',
     label: 'Niêm cất ngắn hạn'
   },
@@ -482,7 +486,7 @@ function CreateProfile(props) {
                   <ListItem>
                     <TextField
                       style={{ width: '100%', marginBottom: 24 }}
-                      label="Thông tin thêm (VD: người đang giữ phương tiện...) "
+                      label="Thông tin thêm (VD: người đang giữ đối với phương tiện VTTX, các ghi chú khác, ...) "
                       name="infor"
                       value={data.infor}
                       onChange={handleChange}
@@ -517,23 +521,36 @@ function CreateProfile(props) {
                   variant="outlined"
                   color="primary"
                   onClick={() => {
-                    selectVehicle({
-                      fuel: '',
-                      brand: '',
-                      number: '',
-                      date: '',
-                      type: '',
-                      sourse: '',
-                      startDate: '',
-                      productDate: '',
-                      owned: '',
-                      level: '',
-                      uses: '',
-                      status: '',
-                      infor: '',
-                      chassis: '',
-                      engine: ''
-                    });
+                    selectVehicle(
+                      {
+                        brand: '',
+                        type: '',
+                        limit: '',
+                        number: '',
+                        fuel:'',
+                        date: '',
+                        sourse:'',
+                        chassis: '',
+                        engine: '',
+                        owned: '',
+                        status: '',
+                        startDate:'',
+                        productDate: '',
+                        level: '',
+                        uses:'',
+                        infor: '',
+                        base64: '',
+                        verify: {
+                            start: '',
+                            end: ''
+                        },
+                        equiments: {
+                            tires: [],
+                            batterys: []
+                        }
+            
+                    }
+                    );
                     setValue(1);
                     setValue(0);
                   }}

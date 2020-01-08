@@ -14,7 +14,6 @@ import Link from 'react-router-dom/Link';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -39,9 +38,8 @@ export default function Home() {
   },[])
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          
+      <AppBar position="fixed">
+        <Toolbar> 
           <Typography variant="h5" className={classes.title}>
           Bộ công cụ quản lí vận tải - Hiệp đồng vận tải
           </Typography>
@@ -61,6 +59,9 @@ export default function Home() {
         </Typography>
         <Typography variant="body2" component="p">
           Chức năng hiệp đồng vận tải sẽ không có ở mục này
+        </Typography>
+        <Typography variant="body2" component="p">
+          Máy tính không cần kết nối tơi Internet hay Lan
         </Typography>
         <Typography variant="body2" component="p">
           Dữ liệu sẽ được lưu tại máy tính cá nhân
@@ -89,7 +90,7 @@ export default function Home() {
           Server được cài đặt tại mạng Lan hoặc Internet
         </Typography>
         <Typography variant="body2" component="p">
-          Máy tính phải có kết nối mạng Lan hoặc Internet
+          Yêu câù phải có kết nối mạng Lan hoặc Internet
         </Typography>
       </CardContent>
       <CardActions>
@@ -98,8 +99,14 @@ export default function Home() {
     </Card>
     
     </div>
-      
-            
+    <AppBar position="fixed" style={{bottom: 0, top: 'auto', background: '#fff'}}>
+        <Toolbar> 
+          <Typography variant="h8" className={classes.title} style={{color: '#000'}}>
+          Copyright © 2019 KhanhBui
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    
     </div>
   );
 }

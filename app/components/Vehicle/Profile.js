@@ -35,7 +35,7 @@ const Profile = props => {
         <div className={classes.root}>
         <AppBar position="static">
             <Tabs value={value} onChange={handleChange}>
-            <Tab label={<h4>Lí lịch phương tiện</h4>} />
+            <Tab label={<h4>Danh sách phương tiện</h4>} />
             <Tab label={<h4>Lí lịch phương tiện</h4>} />
             </Tabs>
         </AppBar>

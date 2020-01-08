@@ -90,12 +90,8 @@ export default function Register(props) {
     if (!navigator.onLine) {
       setOpen(true);
     }else{
-      registerUser({ ...state }, type => {
-        if (type == 1) {
-          history.push('/guest');
-        } else {
-          history.push('/host');
-        }
+      registerUser({ ...state }, ()=> {
+        history.push('/login')
       });
     }
     
@@ -123,7 +119,7 @@ export default function Register(props) {
           justifyContent: 'center',
           alignItems: 'center'
         }}
-        ><Typography variant="h3">Đăng nhập</Typography>
+        ><Typography variant="h3">Đăng kí</Typography>
         <TextField
           className={classes.textfield}
           name="login"
@@ -183,7 +179,7 @@ export default function Register(props) {
           {state.errs.password ? <FormHelperText id="standard-weight-helper-text">{state.errs.password}</FormHelperText> : ''}
           
         </FormControl>
-        <FormControl error={state.errs.password2 ? true : false} className={clsx(classes.margin, classes.textField)} variant="outlined"  style={{width: '100%' ,marginBottom: 20}}>
+        <FormControl error={state.errs.password2 ? true : false} variant="outlined"  style={{width: '100%' ,marginBottom: 20}}>
           <InputLabel htmlFor="outlined-adornment-password">Xác nhận lại mật khẩu</InputLabel>
           <OutlinedInput
             id="outlined-adornment-password"
@@ -195,7 +191,7 @@ export default function Register(props) {
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
+                  onClick={handleClickShowPassword2}
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
                 >
@@ -203,7 +199,7 @@ export default function Register(props) {
                 </IconButton>
               </InputAdornment>
             }
-            labelWidth={70}
+            labelWidth={160}
           />
           {state.errs.password2 ? <FormHelperText id="standard-weight-helper-text">{state.errs.password2}</FormHelperText> : ''}
           
@@ -218,7 +214,7 @@ export default function Register(props) {
         <Typography style={{ marginTop: 8 }}>
           (Quay lại{ ' '}
           <Link
-            to="/"
+            to="/login"
             style={{ color: 'blue' }}
             onClick={() => {
               getErrs({});

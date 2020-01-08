@@ -19,12 +19,12 @@ import List from '@material-ui/core/List';
 const useStyles = makeStyles(theme => {});
 const CreateCommand = (props) => {
   const classes = useStyles();
-  const decode = jwt_decode(localStorage.getItem('jwt'))
+  const decodeId = localStorage.getItem('jwt') ? jwt_decode(localStorage.getItem('jwt')).id : '';
   const {addCommand, chooseCommand, setValue, selectCommand, updateCommand} = props;
   const [open, setOpen] = React.useState(false);
   const [data, setData] = useState({
     status: true,
-    userId: decode.id,
+    userId: decodeId,
     time: moment().format().slice(0,16),
     ...chooseCommand.command
   })

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import { connect } from 'react-redux';
 import Wrapper from '../components/GuestWrapper';
 import Command from '../components/RegisterCommand/Command';
-import {addCommand, getAllCommand, selectCommand} from '../actions/command.actions';
+import {addCommand, getAllCommand, selectCommand, deleteCommand, updateCommand} from '../actions/command.actions';
 
 const mapStateToProps = state=>{
   return {
@@ -22,6 +22,8 @@ export default connect(
   {
     addCommand,
     getAllCommand,
-    selectCommand
+    selectCommand,
+    deleteCommand,
+    updateCommand
   }
 )(RegisterCommandPage);

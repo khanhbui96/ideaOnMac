@@ -33,7 +33,7 @@ const Certificate = props => {
         {value === 0 && <div className={classes.page}  >
           <AllCertificate drivers={drivers}/>
           </div>}
-        {value === 1 && <div className={classes.page}><FilterCertificate drivers={drivers.data}/></div>}
+        {value === 1 && <div className={classes.page}><FilterCertificate drivers={drivers}/></div>}
         </div>
   );
 }

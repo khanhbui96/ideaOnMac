@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux';
-import HostWrapper from '../components/HostWrapper';
+import GuestWrapper from '../components/GuestWrapper';
 import OfflineWrapper from '../components/OfflineWrapper';
 import Calculation from '../components/Calculation/Calculation';
 import {getAll, selectDefineLevel} from '../actions/defineLevel.actions';
@@ -19,9 +19,9 @@ const CalculationPage = (props)=>{
     return(
         <div>
         {localStorage.getItem('jwt') ?  
-        <HostWrapper>
+        <GuestWrapper>
             <Calculation defineLevelProps={props}/>
-        </HostWrapper>:
+        </GuestWrapper>:
         <OfflineWrapper>
           <Calculation defineLevelProps={props}/>
         </OfflineWrapper>

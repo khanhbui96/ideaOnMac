@@ -41,7 +41,7 @@ export const addDefineLevel = (dt, func) => async dispatch => {
         await dispatch(loading());
         if(localStorage.getItem('jwt')){
             await setAuthHeader(localStorage.getItem('jwt'));
-            const defineLevel = await callApi('post', '/defineLevels/create', data);
+            const defineLevel = await callApi('post', '/defineLevels/create', dt);
             data = defineLevel.data
         }else{
             data = await defineLevelsDB.insert({...dt});

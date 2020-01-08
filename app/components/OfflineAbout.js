@@ -21,10 +21,10 @@ const HostAbout = ()=>{
             - Thuận lợi trong công tác quản lý và hiệp đồng vận tải.
             </Typography>
             <Typography>
-            - Giúp lãnh đạo, chỉ huy đánh giá kịp thời và chính xác thực lực vận tải của đơn vị
+            - Giúp lãnh đạo, chỉ huy đánh giá kịp thời và chính xác thực lực vận tải của đơn vị.
             </Typography>
             <Typography>
-            - Là công cụ chứng minh sự hiện đại của quân đội trong cuộc cách mạng khoa học kĩ thuật lần thứ 4 hiện nay.
+            - Khẳng định Quân đội Việt Nam năm bắt và làm chủ được cách mạng công nghệ lần thứ 4 của đất nước.
             </Typography>
             <Typography style={{fontWeight: 'bolder'}}>
             B. ĐẶC ĐIỂM CỦA PHẦN MỀM QUẢN LÝ - HIỆP ĐỒNG VẬN TẢI
@@ -33,10 +33,10 @@ const HostAbout = ()=>{
             - Được thiết kế để chạy trên máy tính (laptop).
             </Typography>
             <Typography>
-            - Không cần cài đặt cơ sở dữ liệu( Hệ thống sẽ chạy trên cơ sở dữ liệu tập trung, tất cả các máy trạm sẽ liên kết đến database chung trên mạng Lan hoặc trên Internet.).
+            - Không cần cài đặt hệ quản trị cơ sở dữ liệu.
             </Typography>
             <Typography>
-            - Chính xác- nhanh chóng -hiệu quả và đồng bộ.
+            - Chính xác - nhanh chóng - hiệu quả - đồng bộ.
             </Typography>
             <Typography>
             - Phân quyền và bảo mật cao.
@@ -51,19 +51,25 @@ const HostAbout = ()=>{
                 - Quản lí hồ sơ của phương tiện vận tải và các trang thiết bị của phương tiện vận tải.
             </Typography>
             <Typography style={{fontWeight: 'bolder'}}>
-                2. Quản lí nhân viên chuyên môn vận tải 
+                2. Hoạt động vận tải thường xuyên
+            </Typography>
+            <Typography>
+                - Thống kê lệnh vận chuyển và theo dõi km hoạt động của xe hoạt động thường xuyên
+            </Typography>
+            <Typography style={{fontWeight: 'bolder'}}>
+                3. Quản lí nhân viên chuyên môn vận tải 
             </Typography>
             <Typography>
                 - Quản lí hồ sơ của nhân viên chuyên môn vận tải, giấy phép lái xe của nhân viên chuyên môn và theo dõi trình độ chuyên môn nghiệp vụ của nhân viên chuyên môn vận tải.
             </Typography>
             <Typography style={{fontWeight: 'bolder'}}>
-                3. Xăng dầu
+                4. Xăng dầu
             </Typography>
             <Typography>
                 - Định mức xăng dầu đối với từng loại xe và tính toán lượng xăng dầu cần thiết cho hành trình
             </Typography>
             <Typography style={{fontWeight: 'bolder'}}>
-                4. Cuộc vận động 50 - Quản lí phương tiện của đơn vị
+                5. Cuộc vận động 50 - Quản lí phương tiện của đơn vị
             </Typography>
             <Typography>
                 - Quản lí phương tiện cá nhân của các quân nhân trong đơn vị.

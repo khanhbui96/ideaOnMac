@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => {});
 const CreateCommand = (props) => {
   const classes = useStyles();
   const decode = jwt_decode(localStorage.getItem('jwt'))
-  const {addCommand, chooseCommand, setValue, selectCommand} = props;
+  const {addCommand, chooseCommand, setValue, selectCommand, updateCommand} = props;
   const [data, setData] = useState({
     status: false,
     userId: decode.id,
@@ -301,11 +301,30 @@ const CreateCommand = (props) => {
             />
           </Grid>
         </Grid>
-        {chooseCommand.isSelected ? <Button 
+        {chooseCommand.isSelected ? 
+        <div>
+          <Button 
+          onClick={()=>{
+            console.log(data._id)
+            updateCommand(
+              data._id
+              ,
+              {
+              ...data,
+              status: false
+          });
+            setValue(0);
+            setValue(1)
+          }}
+          variant="contained" 
+          color="primary" >
+            Cập nhật
+          </Button> 
+        <Button 
           onClick={()=>{
             selectCommand({
               status: false,
-              userId: '',
+              userId: decode.id,
               amount: '',
               to: '',
               to2: '',
@@ -333,10 +352,11 @@ const CreateCommand = (props) => {
             setValue(0);
             setValue(1)
           }}
-          variant="contained" 
+          variant="contained"
+          style={{marginLeft: 10}} 
           color="primary" >
             Xem xong
-          </Button> :  <div>
+          </Button> </div> :  <div>
           <Button variant="contained" color="primary" onClick={handleSend}>
             Gửi yêu cầu
           </Button>

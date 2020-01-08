@@ -27,6 +27,8 @@ import Fab from '@material-ui/core/Fab';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import jwt_decode from 'jwt-decode';
 import moment from 'moment';
 import AddMotoBike from './AddMotoBike';
@@ -65,7 +67,6 @@ function TablePaginationActions(props) {
   function handleFirstPageButtonClick(event) {
     onChangePage(event, 0);
   }
-
   function handleBackButtonClick(event) {
     onChangePage(event, page - 1);
   }
@@ -142,8 +143,10 @@ const useStyles2 = makeStyles(theme => ({
 
 function MotoBikeList(props) {
   const classes = useStyles2();
+  const b = parseInt((moment(new Date()).format('YYYY/MM/DD')).replace(/\D/g,''));  
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [open, setOpen] = React.useState(false);
   const decode = localStorage.getItem('jwt') ? jwt_decode(localStorage.getItem('jwt')).id : '';
   const {
     addMotoBike, 
@@ -155,18 +158,19 @@ function MotoBikeList(props) {
     errs,
     getErrs
 } = props.motoBikeProps;
-  const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
   const [status, setStatus] = React.useState('');
   const [keyword, setKeyword] = React.useState('');
+  const [keyword2, setKeyword2] = React.useState('');
   const handleSearch = ()=>{
     setKeyword(new Date().getMonth()+2)
 }
-  const handleBack = ()=>{
-        setKeyword('')
-    }
   function handleClickOpen() {
     setOpen(true);
   }
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
   function handleClose() {
     setOpen(false);
   }
@@ -186,6 +190,9 @@ function MotoBikeList(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   }
+  const handleBack = ()=>{
+    setKeyword('')
+}
   const MotoBike = (motoBike, index)=>{
     return <TableRow  key={index}>
                         <StyledTableCell align="center">{index+1}</StyledTableCell>
@@ -206,13 +213,14 @@ function MotoBikeList(props) {
                                 variant="outlined"
                                 size="small"
                                 color="primary"
-                                style ={{marginRight: 10}}
+                                style ={{fontSize: 10, marginRight: 10, maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}
                                 >
                                 Sửa
                             </Button>
                             <Button 
                                 variant="outlined" 
-                                size="small" color="primary" 
+                                size="small" color="primary"
+                                style ={{ fontSize: 10, maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} 
                                 onClick={() => { deleteMotoBike(motoBike._id) }}>
                                 Xóa
                             </Button>
@@ -224,10 +232,27 @@ const filterMotoBike = (motoBikes)=>{
     .filter(motoBike => {
         return motoBike.userId.indexOf(decode) !== -1
     })
-    .filter(motoBike => {
-        return motoBike.duration.slice(5,7).indexOf(keyword) !==-1 || motoBike.type == keyword 
-                || motoBike.name.indexOf(keyword) !== -1 || motoBike.license.indexOf(keyword) !== -1
+    .filter(motoBike=>{
+      let a = motoBike.duration.replace(/\D/g,'')
+      if(!keyword2){
+        return motoBike
+      }else if (
+        keyword2 == 'still'
+      ){
+        return (parseInt(a) - b) > 0
+      }else if (
+        keyword2 == 'over'
+      ){
+        return (parseInt(a) - b) < 0
+      }
     })
+    .filter(motoBike => {
+      let a = motoBike.duration.replace(/\D/g,'')
+      return motoBike.duration.slice(5,7).indexOf(keyword) !==-1 || motoBike.type == keyword 
+                || motoBike.name.indexOf(keyword) !== -1 || motoBike.license.indexOf(keyword) !== -1 
+      
+      
+        })
     .map((motoBike, index)=>{
         return MotoBike(motoBike, index)
     })
@@ -249,6 +274,7 @@ const filterMotoBike = (motoBikes)=>{
     }
   }, [value]);
   return (
+    <div style={{display: 'flex', justifyContent: 'center', alignItems:'center', flexDirection: 'column'}}>
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
       <Typography style={{ textAlign: 'center' }} variant='h5'>
@@ -269,6 +295,16 @@ const filterMotoBike = (motoBikes)=>{
                         <option value="" ></option>
                         <option value='motor'>Xe mô tô - Xe gắn máy</option>
                         <option value='car'>Xe ô tô</option>
+                    </Select>
+                </FormControl>
+                <FormControl className={classes.formControl} style={{marginLeft: 20 }}>
+                    <InputLabel  htmlFor="age-native-simple">Hạn bảo hiểm{''}</InputLabel>
+                    <Select native onChange={(e) => {
+                        setKeyword2(e.target.value)
+                    }}>
+                        <option value="" ></option>
+                        <option value='still'>Còn hạn bảo hiểm</option>
+                        <option value='over'>Hết hạn bảo hiểm</option>
                     </Select>
                 </FormControl>
                <Fab
@@ -353,6 +389,50 @@ const filterMotoBike = (motoBikes)=>{
         />
       </div>
     </Paper>
+    <Button
+    variant="outlined"
+    style = {{marginTop: 20}}
+    size="small"
+    color="primary"
+    className={classes.margin}
+    onClick={() => {
+      setOpen2(true);
+      
+      renderToDocx({
+        "vehicles" : [
+          ...vehicles.data.filter(vehicle => {
+            return (
+              vehicle.brand.indexOf(key) !== -1 ||
+              vehicle.type.indexOf(key) !== -1 ||
+              vehicle.number.indexOf(key) !== -1 ||
+              vehicle.fuel == key
+            );
+          })
+        ]
+      }, 'vehicles.docx')
+    }
+  
+  }
+  >
+    Xuất danh sách ra văn bản
+  </Button>
+  <Dialog
+  open={open2}
+  onClose={handleClose2}
+  aria-labelledby="alert-dialog-title"
+  aria-describedby="alert-dialog-description"
+>
+  <DialogTitle id="alert-dialog-title" style={{ textAlign: 'center' }}>
+    {`Đã xuât ra văn bản. Truy cập đường dẫn C:/ để tìm file mới tạo . Cảm ơn!`}
+  </DialogTitle>
+
+  <DialogActions>
+    <Button onClick={handleClose2} color="primary">
+      Đã rõ
+    </Button>
+  </DialogActions>
+</Dialog>
+</div>
   );
 }
 export default MotoBikeList;

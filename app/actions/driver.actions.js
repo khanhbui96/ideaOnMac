@@ -42,7 +42,7 @@ export const addDriver = (dt, func) => async dispatch => {
         await dispatch(loading());
         if(localStorage.getItem('jwt')){
             await setAuthHeader(localStorage.getItem('jwt'));
-            const driver = await callApi('post', '/drivers/create', data);
+            const driver = await callApi('post', '/drivers/create', dt);
             data = driver.data
         }else{
             data = await driversDB.insert({...dt});

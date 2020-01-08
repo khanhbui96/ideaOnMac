@@ -32,7 +32,7 @@ const Command = props => {
         <div className={classes.root}>
         <AppBar position="static">
             <Tabs value={value} onChange={handleChange}>
-            <Tab label={<h4> Tạo lệnh</h4>} />
+            <Tab label={<h4> Đăng  kí lệnh</h4>} />
             <Tab label={<h4> Danh sách lệnh vận chuyển</h4>} />
             </Tabs>
         </AppBar>

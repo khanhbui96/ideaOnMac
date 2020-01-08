@@ -2,9 +2,9 @@ import PizZip from 'pizzip';
 import Docxtemplater from 'docxtemplater';
 import fs from 'fs';
 import path from 'path';
-const renderToDocx = data => {
+const renderToDocx = (data, templateName ) => {
   var content = fs.readFileSync(
-    path.resolve('C:/Lenh', 'input.docx'),
+    path.resolve(path.resolve(__dirname, templateName)),
     'binary'
   );
 
@@ -31,7 +31,7 @@ const renderToDocx = data => {
   }
 
   var buf = doc.getZip().generate({ type: 'nodebuffer' });
-  let name = `${data.license}${data.time.slice(0,10)}.docx`;
-  fs.writeFileSync(path.resolve('C:/Lenhc', name ), buf);
+  let name = `${templateName}${Math.random()}.docx`;
+  fs.writeFileSync(path.resolve(__dirname, name), buf);
 };
 export default renderToDocx;

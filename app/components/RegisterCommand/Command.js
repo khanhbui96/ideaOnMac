@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 const Command = props => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const {addCommand, commands, selectCommand, chooseCommand, getAllCommand} = props.commandProps;
+  const {addCommand, commands, selectCommand, chooseCommand, getAllCommand, deleteCommand, updateCommand} = props.commandProps;
   function handleChange(event, newValue) {
     setValue(newValue);
   }
@@ -34,6 +34,7 @@ const Command = props => {
               chooseCommand={chooseCommand}
               setValue={setValue}
               selectCommand={selectCommand}
+              updateCommand={updateCommand}
              />
           </div>}
         {value === 1 && <div className={classes.page}>
@@ -42,6 +43,7 @@ const Command = props => {
             getAllCommand = {getAllCommand}
             selectCommand={selectCommand}
             setValue={setValue}
+            deleteCommand = {deleteCommand}
             />
         </div>}
         </div>

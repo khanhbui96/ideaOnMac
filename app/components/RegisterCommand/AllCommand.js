@@ -402,16 +402,7 @@ function AllCommand(props) {
           >
             Xem
           </Button>
-          <Button
-            variant="outlined"
-            size="small"
-            color="primary"
-            onClick={() => {
-              deleteCommand(row._id);
-            }}
-          >
-            Xóa
-          </Button>
+          
         </StyledTableCell>
       </StyledTableRow>
     );
@@ -419,6 +410,8 @@ function AllCommand(props) {
   const filterCommands = commands => {
     return commands
       .filter(command => {
+        console.log(command.userId);
+        console.log(decode.id);
         return command.userId == decode.id;
       })
       .sort((a, b) => {

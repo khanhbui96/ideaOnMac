@@ -24,6 +24,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { Link, withRouter } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Button from '@material-ui/core/Button';
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import MotorcycleIcon from '@material-ui/icons/Motorcycle';
 import {getErrs} from '../actions/erros.actions'
 
@@ -94,7 +95,7 @@ function Wrapper({ history, children, getErrs, user }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [topic, changeTopic] = React.useState('Phần mềm quản lí vận tải');
+  const [topic, changeTopic] = React.useState('Bộ công cụ quản lí vận tải - Hiệp đồng vận tải');
   function handleDrawerOpen() {
     setOpen(true);
   }
@@ -213,6 +214,35 @@ function Wrapper({ history, children, getErrs, user }) {
                 />
               </ListItem>
             </Link>
+            </Collapse>
+            <List
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <LocalShippingIcon />
+              </ListItemIcon>
+              <ListItemText
+                onClick={e => {
+                  changeTopic(e.target.innerText);
+                }}
+                primary="Hoạt động vận tải thường xuyên"
+              />
+            </ListItem>
+          </List>
+          <Collapse in={open} timeout="auto">
+              <Link to="/host/approveCommand">
+              <ListItem button style={{ paddingLeft: 76 }}>
+                <ListItemText
+                  onClick={e => {
+                    changeTopic(e.target.innerText);
+                  }}
+                  primary="Lệnh vận chuyển"
+                />
+              </ListItem>
+            </Link>
             <Link to="/host/vehical/verify">
               <ListItem button style={{ paddingLeft: 76 }}>
                 <ListItemText
@@ -224,6 +254,7 @@ function Wrapper({ history, children, getErrs, user }) {
               </ListItem>
             </Link>
             </Collapse>
+          
           <List onClick={() => setOpen(true)}>
             <ListItem button>
               <ListItemIcon>
@@ -276,7 +307,7 @@ function Wrapper({ history, children, getErrs, user }) {
           >
             <ListItem button>
               <ListItemIcon>
-                <DirectionsCar />
+                <LocalGasStationIcon />
               </ListItemIcon>
               <ListItemText
                 onClick={e => {

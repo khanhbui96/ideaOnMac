@@ -20,7 +20,11 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Loading from '../Loading';
+import renderToDocx from '../../utils/renderToDocx';
 
 const useStyles1 = makeStyles(theme => ({
   root: {
@@ -138,15 +142,18 @@ function AllProfile(props) {
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [open, setOpen] = React.useState(false);
   const { drivers, deleteDriver, setValue, selectDriver } = props;
   const emptyRows =
     rowsPerPage -
     Math.min(rowsPerPage, drivers.data.length - page * rowsPerPage);
   const [key, changeKey] = React.useState('');
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleChange = e => {
     changeKey(e.target.value);
   };
-
   function handleChangePage(event, newPage) {
     setPage(newPage);
   }
@@ -229,6 +236,7 @@ function AllProfile(props) {
     }
   }, [value]);
   return (
+    <div style={{display: 'flex', justifyContent: 'center', alignItems:'center', flexDirection: 'column'}}>
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
         <Typography
@@ -380,6 +388,48 @@ function AllProfile(props) {
         />{' '}
       </div>{' '}
     </Paper>
+    <Button
+            variant="outlined"
+            style = {{marginTop: 20}}
+            size="small"
+            color="primary"
+            className={classes.margin}
+            onClick={() => {
+              renderToDocx({
+                "drivers" : [
+                  ...drivers.data.filter(driver => {
+                    return (
+                      driver.name.indexOf(key) !== -1 ||
+                      driver.rank == key ||
+                      driver.position == key
+                    );
+                  })
+            
+                ]
+              }, 'drivers.docx')
+
+              setOpen(true)
+            }}
+          >
+            Xuất ra văn bản
+          </Button>
+          <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title" style={{ textAlign: 'center' }}>
+            {`Đã xuât ra văn bản. Truy cập đường dẫn C:/ để mở file có tên . Cảm ơn!`}
+          </DialogTitle>
+
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Đã rõ
+            </Button>
+          </DialogActions>
+        </Dialog>
+    </div>
   );
 }
 export default AllProfile;

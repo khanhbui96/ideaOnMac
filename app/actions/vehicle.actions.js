@@ -43,7 +43,7 @@ export const addVehicle = (dt, func) => async dispatch => {
         await dispatch(loading());
         if(localStorage.getItem('jwt')){
             await setAuthHeader(localStorage.getItem('jwt'));
-            let vehicle = await callApi('post', '/vehicles/create', data);
+            let vehicle = await callApi('post', '/vehicles/create', dt);
             data = vehicle.data
         }else{
             data = await vehiclesDB.insert({...dt});
@@ -83,7 +83,7 @@ export const updateVehicle = (id, data, func) => async dispatch => {
             callApi("post", `/vehicles/update/${id}`, data );
         }else{
             await vehiclesDB.update({_id: id}, {...data})
-        }
+        }   
         
         await dispatch({
             type: UPDATE_VEHICLE,

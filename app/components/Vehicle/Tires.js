@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Tires(props) {
   const classes = useStyles();
-  const { open, handleClickOpen, handleClose, updateData, updateVehicle } = props;
+  const { open, handleClickOpen, handleClose, updateData, updateVehicle, selectVehicle } = props;
   const [id, setId] = React.useState('');
   const [tires, changeTire] = React.useState([...updateData.vehicle.equiments.tires]);
   const handleAdd = e => {
@@ -66,7 +66,15 @@ export default function Tires(props) {
           tires: tires
         }
       },
-      ()=>{}
+      ()=>{
+        selectVehicle({
+          ...updateData.vehicle,
+        equiments: {
+          ...updateData.vehicle.equiments,
+          tires: tires
+        }
+        })
+      }
     )
   }
   const Tire = props => {

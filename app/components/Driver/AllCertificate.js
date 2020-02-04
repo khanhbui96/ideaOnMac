@@ -20,7 +20,10 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import renderToDocx from '../../utils/renderToDocx';
 import Loading from '../Loading';
 
 const useStyles1 = makeStyles(theme => ({
@@ -139,6 +142,7 @@ function AllCertificate(props) {
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [open, setOpen] = React.useState(false);
   const {drivers} = props;
   const emptyRows =
     rowsPerPage -
@@ -147,11 +151,26 @@ function AllCertificate(props) {
   const handleChange = e => {
     changeKey(e.target.value);
   };
-
   function handleChangePage(event, newPage) {
     setPage(newPage);
-  }
-
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleExport = ()=>{
+    setOpen(true);
+    renderToDocx({
+      "drivers": [
+        ...drivers.data.filter(driver => {
+        return (
+          driver.name.indexOf(key) !== -1 ||
+          driver.rank == key ||
+          driver.position == key
+        );
+      })
+      ]
+    }, 'template4.docx')
+  };
   function handleChangeRowsPerPage(event) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -198,6 +217,10 @@ const filterDrivers = (drivers)=>{
     }
   }, [value]);
   return (
+    <div
+    style={{display: 'flex', justifyContent: 'center', alignItems:'center', flexDirection: 'column'}}
+    >
+      
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
         <Typography
@@ -304,6 +327,33 @@ const filterDrivers = (drivers)=>{
         />{' '}
       </div>{' '}
     </Paper>
+    <Button
+            variant="outlined"
+            style = {{marginTop: 20}}
+            size="small"
+            color="primary"
+            className={classes.margin}
+            onClick={handleExport}
+          >
+            Xuất ra văn bản
+          </Button>
+    <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title" style={{ textAlign: 'center' }}>
+          {`Đã xuất ra văn bản. Truy cập đường dẫn C:/QLXM-HĐVT/Output để tìm file mới tạo. Cảm ơn!`}
+          </DialogTitle>
+
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Đã rõ
+            </Button>
+          </DialogActions>
+        </Dialog>
+    </div>
   );
 }
 export default AllCertificate;

@@ -80,7 +80,7 @@ export const updateVehicle = (id, data, func) => async dispatch => {
         func();
         if(localStorage.getItem('jwt')){
             await setAuthHeader(localStorage.getItem('jwt'));
-            callApi("post", `/vehicles/update/${id}`, data );
+            await callApi("post", `/vehicles/update/${id}`, data );
         }else{
             await vehiclesDB.update({_id: id}, {...data})
         }   

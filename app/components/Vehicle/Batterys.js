@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Batterys(props) {
   const classes = useStyles();
-  const { open, handleClickOpen, handleClose, updateData, updateVehicle } = props;
+  const { open, handleClickOpen, handleClose, updateData, updateVehicle, selectVehicle } = props;
   const [id, setId] = React.useState('');
   const [batterys, changeBatterys] = React.useState([...updateData.vehicle.equiments.batterys]);
   const handleAdd = e => {
@@ -66,7 +66,17 @@ export default function Batterys(props) {
           batterys: batterys
         }
       },
-      ()=>{}
+      ()=>{
+        selectVehicle(
+          {
+            ...updateData.vehicle,
+            equiments: {
+              ...updateData.vehicle.equiments,
+              batterys: batterys
+            }
+          }
+        )
+      }
     )
   }
   const Battery = props => {

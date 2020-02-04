@@ -95,12 +95,12 @@ const Volume = (props)=>{
   }
     return(
         <div>
-            <Typography>Số người cần vận chuyển (Nếu vận chuyển vật chất thì bỏ qua bước này)</Typography>
+            <Typography>Khối lượng cần vận chuyển (Nếu cơ động bộ đội thì bỏ qua bước này)</Typography>
             <TextField
                 onChange={handleChange}
                 id="standard-full-width"
                 style={{ margin: 8, width: '40%' }}
-                placeholder="Đơn vị là người"
+                placeholder="Đơn vị là tấn"
                 margin="normal"
                 InputLabelProps={{
                 shrink: true,

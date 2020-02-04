@@ -33,7 +33,7 @@ import jwt_decode from 'jwt-decode';
 import moment from 'moment';
 import AddMotoBike from './AddMotoBike';
 import Loading from '../Loading';
-
+import renderToDocx from '../../utils/renderToDocx';
 
 const useStyles1 = makeStyles(theme => ({
   root: {
@@ -213,14 +213,14 @@ function MotoBikeList(props) {
                                 variant="outlined"
                                 size="small"
                                 color="primary"
-                                style ={{fontSize: 10, marginRight: 10, maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}
+                                
                                 >
                                 Sửa
                             </Button>
                             <Button 
                                 variant="outlined" 
                                 size="small" color="primary"
-                                style ={{ fontSize: 10, maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} 
+                                style ={{ marginTop: 10}} 
                                 onClick={() => { deleteMotoBike(motoBike._id) }}>
                                 Xóa
                             </Button>
@@ -277,7 +277,7 @@ const filterMotoBike = (motoBikes)=>{
     <div style={{display: 'flex', justifyContent: 'center', alignItems:'center', flexDirection: 'column'}}>
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
-      <Typography style={{ textAlign: 'center' }} variant='h5'>
+      <Typography style={{ textAlign: 'center', marginTop: 10 }} variant='h5'>
                 THÔNG TIN PHƯƠNG TIỆN THEO QUY ĐỊNH
             </Typography>
             <div>
@@ -316,15 +316,7 @@ const filterMotoBike = (motoBikes)=>{
                     style={{ float: 'right' }}>
                     <Add />
                 </Fab>
-                {!keyword ? <Fab
-                    onClick={handleSearch}
-                    size="medium"
-                    color="primary"
-                    aria-label="Add"
-                    className={classes.margin}
-                    style={{ float: 'right', marginRight: 20 }}>
-                    <SearchIcon/>
-                </Fab>:
+                {!keyword ? null :
                 <Fab
                 onClick={handleBack}
                 size="medium"
@@ -397,19 +389,34 @@ const filterMotoBike = (motoBikes)=>{
     className={classes.margin}
     onClick={() => {
       setOpen2(true);
-      
       renderToDocx({
-        "vehicles" : [
-          ...vehicles.data.filter(vehicle => {
-            return (
-              vehicle.brand.indexOf(key) !== -1 ||
-              vehicle.type.indexOf(key) !== -1 ||
-              vehicle.number.indexOf(key) !== -1 ||
-              vehicle.fuel == key
-            );
-          })
+        "motoBikes" : [
+          ...motoBikes.data.filter(motoBike => {
+            return motoBike.userId.indexOf(decode) !== -1
+        })
+        .filter(motoBike=>{
+          let a = motoBike.duration.replace(/\D/g,'')
+          if(!keyword2){
+            return motoBike
+          }else if (
+            keyword2 == 'still'
+          ){
+            return (parseInt(a) - b) > 0
+          }else if (
+            keyword2 == 'over'
+          ){
+            return (parseInt(a) - b) < 0
+          }
+        })
+        .filter(motoBike => {
+          let a = motoBike.duration.replace(/\D/g,'')
+          return motoBike.duration.slice(5,7).indexOf(keyword) !==-1 || motoBike.type == keyword 
+                    || motoBike.name.indexOf(keyword) !== -1 || motoBike.license.indexOf(keyword) !== -1 
+          
+          
+            })
         ]
-      }, 'vehicles.docx')
+      }, 'template6.docx')
     }
   
   }
@@ -423,7 +430,7 @@ const filterMotoBike = (motoBikes)=>{
   aria-describedby="alert-dialog-description"
 >
   <DialogTitle id="alert-dialog-title" style={{ textAlign: 'center' }}>
-    {`Đã xuât ra văn bản. Truy cập đường dẫn C:/ để tìm file mới tạo . Cảm ơn!`}
+    {`Đã xuât ra văn bản. Truy cập đường dẫn C:/QLXM-HĐVT/Output để tìm file mới được tạo. Cảm ơn!`}
   </DialogTitle>
 
   <DialogActions>

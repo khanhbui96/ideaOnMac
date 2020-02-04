@@ -233,7 +233,7 @@ function AllProfile(props) {
     <div style={{display: 'flex', justifyContent: 'center', alignItems:'center', flexDirection: 'column'}}>
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
-        <Typography style={{ textAlign: 'center' }} variant="h4">
+        <Typography style={{ textAlign: 'center', marginTop: 10 }} variant="h4">
           Lí lịch phương tiện
         </Typography>
         <div>
@@ -322,7 +322,16 @@ function AllProfile(props) {
             className={classes.margin}
             onClick={() => {
               setOpen(true);
-              
+              console.log(
+                vehicles.data.filter(vehicle => {
+                  return (
+                    vehicle.brand.indexOf(key) !== -1 ||
+                    vehicle.type.indexOf(key) !== -1 ||
+                    vehicle.number.indexOf(key) !== -1 ||
+                    vehicle.fuel == key
+                  );
+                })
+              )
               renderToDocx({
                 "vehicles" : [
                   ...vehicles.data.filter(vehicle => {
@@ -334,7 +343,7 @@ function AllProfile(props) {
                     );
                   })
                 ]
-              }, 'vehicles.docx')
+              }, 'template3.docx')
             }
           
           }
@@ -348,7 +357,7 @@ function AllProfile(props) {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title" style={{ textAlign: 'center' }}>
-            {`Đã xuât ra văn bản. Truy cập đường dẫn C:/ để tìm file mới tạo . Cảm ơn!`}
+            {`Đã xuất ra văn bản. Truy cập đường dẫn C:/QLXM-HĐVT/Output để tìm file mới tạo. Cảm ơn!`}
           </DialogTitle>
 
           <DialogActions>

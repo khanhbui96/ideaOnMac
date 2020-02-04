@@ -395,8 +395,9 @@ function AllProfile(props) {
             color="primary"
             className={classes.margin}
             onClick={() => {
+              setOpen(true);
               renderToDocx({
-                "drivers" : [
+                "drivers": [
                   ...drivers.data.filter(driver => {
                     return (
                       driver.name.indexOf(key) !== -1 ||
@@ -404,12 +405,10 @@ function AllProfile(props) {
                       driver.position == key
                     );
                   })
-            
                 ]
-              }, 'drivers.docx')
-
-              setOpen(true)
-            }}
+              
+            }, 'template2.docx')
+          }}
           >
             Xuất ra văn bản
           </Button>
@@ -420,7 +419,7 @@ function AllProfile(props) {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title" style={{ textAlign: 'center' }}>
-            {`Đã xuât ra văn bản. Truy cập đường dẫn C:/ để mở file có tên . Cảm ơn!`}
+          {`Đã xuất ra văn bản. Truy cập đường dẫn C:/QLXM-HĐVT/Output để tìm file mới tạo. Cảm ơn!`}
           </DialogTitle>
 
           <DialogActions>

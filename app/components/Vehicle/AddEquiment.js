@@ -54,7 +54,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function AddEquiment(props) {
   const classes = useStyles();
-  const { open, setOpen ,updateData, updateVehicle } = props;
+  const { open, setOpen ,updateData, updateVehicle, selectVehicle } = props;
   return (
     <div>
       <Dialog
@@ -79,12 +79,14 @@ export default function AddEquiment(props) {
               <Tires 
                 updateData={updateData} 
                 updateVehicle={updateVehicle}
+                selectVehicle={selectVehicle}
                 />  
           </Grid>
           <Grid item md={6} sm = {12} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center'}}>
           <Batterys 
             updateData={updateData} 
             updateVehicle={updateVehicle}
+            selectVehicle={selectVehicle}
             />
           </Grid>
           </Grid>

@@ -95,7 +95,7 @@ function Wrapper({ history, children, getErrs, user }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [topic, changeTopic] = React.useState('Bộ công cụ quản lí vận tải - Hiệp đồng vận tải');
+  const [topic, changeTopic] = React.useState('Bộ công cụ quản lí PT - NVCM ngành xe máy và Hiệp đồng vận tải');
   function handleDrawerOpen() {
     setOpen(true);
   }

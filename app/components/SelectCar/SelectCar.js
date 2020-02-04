@@ -37,7 +37,7 @@ function getSteps() {
    'Lựa chon xe theo nhiêu liệu sử dụng',
     'Lựa chọn xe theo khả năng thông qua',
      'Lựa chọn xe theo khối lượng cần vận chuyển',
-    'Lựa chọn xe theo số người cần vận chuyển'];
+    'Lựa chọn xe theo số lượng bộ đội cần cơ động'];
 }
 
 

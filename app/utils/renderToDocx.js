@@ -3,10 +3,9 @@ import Docxtemplater from 'docxtemplater';
 import fs from 'fs';
 import path from 'path';
 const renderToDocx = (data, templateName ) => {
-  var content = fs.readFileSync(
-    path.resolve(path.resolve(__dirname, templateName)),
-    'binary'
-  );
+  var content = fs
+      .readFileSync(path.resolve(`${__dirname}/QLXM-HĐVT/Input/`, templateName),
+    'binary')
 
   var zip = new PizZip(content);
 
@@ -32,6 +31,6 @@ const renderToDocx = (data, templateName ) => {
 
   var buf = doc.getZip().generate({ type: 'nodebuffer' });
   let name = `${templateName}${Math.random()}.docx`;
-  fs.writeFileSync(path.resolve(__dirname, name), buf);
+  fs.writeFileSync(path.resolve(`${__dirname}/QLXM-HĐVT/Output/`, name), buf);
 };
 export default renderToDocx;

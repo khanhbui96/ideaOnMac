@@ -1,204 +1,3 @@
-// import React, { useEffect } from 'react';
-// import { withStyles, makeStyles } from '@material-ui/core/styles';
-// import Table from '@material-ui/core/Table';
-// import TableBody from '@material-ui/core/TableBody';
-// import TableCell from '@material-ui/core/TableCell';
-// import TableHead from '@material-ui/core/TableHead';
-// import TableRow from '@material-ui/core/TableRow';
-// import TextField from '@material-ui/core/TextField';
-// import Paper from '@material-ui/core/Paper';
-// import { Clear } from '@material-ui/icons';
-// import { Link } from 'react-router-dom';
-// import Typography from '@material-ui/core/Typography';
-// import IconButton from '@material-ui/core/IconButton';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import Button from '@material-ui/core/Button';
-// import { red } from '@material-ui/core/colors';
-// import FormControl from '@material-ui/core/FormControl';
-// import Select from '@material-ui/core/Select';
-
-// const StyledTableCell = withStyles(theme => ({
-//   head: {
-//     backgroundColor: theme.palette.common.black,
-//     color: theme.palette.common.white
-//   },
-//   body: {
-//     fontSize: 14
-//   }
-// }))(TableCell);
-
-// const StyledTableRow = withStyles(theme => ({
-//   root: {
-//     '&:nth-of-type(odd)': {
-//       backgroundColor: theme.palette.background.default
-//     }
-//   }
-// }))(TableRow);
-
-// function createData(name, rank, position, unit, infor) {
-//   return { name, rank, position, unit, infor };
-// }
-
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     width: '100%',
-//     marginTop: theme.spacing(3),
-//     overflowX: 'auto'
-//   },
-//   table: {
-//     minWidth: 700,
-//     marginTop: 10
-//   },
-//   formControl: {
-//     margin: theme.spacing(1),
-//     minWidth: 120
-//   },
-//   appBar: {
-//     position: 'relative'
-//   },
-//   title: {
-//     marginLeft: theme.spacing(2),
-//     flex: 1
-//   },
-//   avatar: {
-//     backgroundColor: red[500]
-//   },
-//   bigAvatar: {
-//     margin: 10,
-//     width: 200,
-//     height: 200
-//   },
-//   imageBox: {
-//     display: 'flex',
-//     justifyContent: 'center',
-//     alignItems: 'center'
-//   },
-//   margin: {
-//     marginLeft: 8
-//   }
-// }));
-
-// function FilterLevel(props) {
-//   const classes = useStyles();
-//   const { drivers } = props;
-//   const [key, changeKey] = React.useState(new Date().getFullYear()+1);
-//   const handleChange = e => {
-//     changeKey(e.target.value);
-//   };
-  // const defineStatus = (salary, position)=>{
-  //   if(position == 'Thợ sữa chữa'){
-  //     if(salary == "Bậc 1" || salary == "Bậc 2"|| salary == "Bậc 3" || salary == "Bậc 4" ||  salary == "Bậc 6" || salary == "Bậc 8"  ){
-  //       return 'Nâng bậc'
-  //     }else {
-  //       return "Giữ bậc"
-  //     }
-  //   }
-  //   if(position == 'Lái xe'){
-  //     if(salary == "Bậc 4" || salary == "Bậc 7"  ){
-  //       return 'Nâng bậc'
-  //     }else {
-  //       return "Giữ bậc"
-  //     }
-  //   }
-  // }
-  // const Driver = (row, index) => {
-  //   return (
-  //     <StyledTableRow key={row.name}>
-  //          <StyledTableCell component="th"  align="center" scope="row">{index+1}</StyledTableCell>
-  //   <StyledTableCell align="center">{row.name}</StyledTableCell>
-  //   <StyledTableCell align="center">{row.position}</StyledTableCell>
-  //   <StyledTableCell align="center">{row.unit}</StyledTableCell>
-  //   <StyledTableCell align="center">{row.rank}</StyledTableCell>
-  //   <StyledTableCell align="center">{row.salary}</StyledTableCell>
-  //   <StyledTableCell align="center">{row.salaryReceive}</StyledTableCell>
-  //   <StyledTableCell align="center">{row.degree}</StyledTableCell>
-  //   <StyledTableCell align="center">{row.dateReceive}</StyledTableCell>
-  //   <StyledTableCell align="center">{defineStatus(row.salary, row.position)}</StyledTableCell>
-  //     </StyledTableRow>
-  //   );
-  // };
-  // const filterDrivers = drivers => {
-    
-  //   return drivers
-  //     .filter(driver=>{
-  //       if(driver.salary == "Bậc 1" || driver.salary == "Bậc 2" || driver.salary =="Bậc 3" ){
-  //         return  parseInt(driver.salaryReceive) + 2 == key
-  //       }else{
-  //         return  parseInt(driver.salaryReceive) + 3 == key
-  //       }
-  //     })
-  //     .map((driver, index) => {
-  //       return Driver(driver, index);
-  //     });
-  // };
-//   return (
-//     <Paper className={classes.root}>
-      // <Typography style={{ textAlign: 'center' }} variant="h5">
-      //   Danh sách lái xe, thợ sữa chữa nâng lương-phiên quân hàm, nâng-giữ bậc
-      //   trong năm {' '}{ new Date().getFullYear()+1}
-      //   {
-      //     <div>
-      //       <FormControl
-      //         style={{
-      //           width: 160,
-      //           marginRight: 16
-      //         }}
-      //       >
-      //         <InputLabel> Chọn năm </InputLabel>{' '}
-      //         <Select native onChange={handleChange}>
-      //           <option value={new Date().getFullYear()+1}/>
-      //           <option value={new Date().getFullYear()} default> {new Date().getFullYear()} </option>{' '}
-      //           <option value={new Date().getFullYear()+1}>{new Date().getFullYear()+1} </option>{' '}
-      //           <option value={new Date().getFullYear()+2}> {new Date().getFullYear()+2}</option>{' '}
-      //         </Select>{' '}
-      //       </FormControl>{' '}
-      //     </div>
-      //   }
-      // </Typography>
-
-//       <Table className={classes.table}>
-        // <TableHead>
-        //   <TableRow style={{ background: '#3f51b5' }}>
-        //     <StyledTableCell style={{ background: '#3f51b5' }} align="center">
-        //       STT
-        //     </StyledTableCell>
-        //     <StyledTableCell style={{ background: '#3f51b5' }} align="center">
-        //       Họ và tên
-        //     </StyledTableCell>
-        //     <StyledTableCell style={{ background: '#3f51b5' }} align="center">
-        //         Chức vụ
-        //     </StyledTableCell>
-        //     <StyledTableCell style={{ background: '#3f51b5' }} align="center">
-        //       Đơn vị
-        //     </StyledTableCell>
-        //     <StyledTableCell style={{ background: '#3f51b5' }} align="center">
-        //         Cấp bậc
-        //     </StyledTableCell>
-        //     <StyledTableCell style={{ background: '#3f51b5' }} align="center">
-        //         Bậc lương
-        //     </StyledTableCell>
-        //     <StyledTableCell style={{ background: '#3f51b5' }} align="center">
-        //         Năm nhận
-        //     </StyledTableCell>
-            
-        //     <StyledTableCell style={{ background: '#3f51b5' }} align="center">
-        //       Bậc kĩ thuật
-        //     </StyledTableCell>
-        //     <StyledTableCell style={{ background: '#3f51b5' }} align="center">
-        //       Năm nhận
-        //     </StyledTableCell>
-        //     <StyledTableCell style={{ background: '#3f51b5' }} align="center">
-        //       Trạng thái
-        //     </StyledTableCell>
-        //   </TableRow>
-        // </TableHead>
-//         <TableBody>{filterDrivers(drivers)}</TableBody>
-//       </Table>
-//     </Paper>
-//   );
-// }
-// export default FilterLevel;
-
 
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -222,7 +21,11 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Loading from '../Loading';
+import renderToDocx from '../../utils/renderToDocx';
 
 const useStyles1 = makeStyles(theme => ({
   root: {
@@ -340,6 +143,7 @@ function FilterLevel(props) {
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [open, setOpen] = React.useState(false);
   const {drivers} = props;
   const emptyRows =
     rowsPerPage -
@@ -348,7 +152,24 @@ function FilterLevel(props) {
   const handleChange = e => {
     changeKey(e.target.value);
   };
-
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleExport = ()=>{
+    setOpen(true);
+    renderToDocx({
+      "drivers": [
+        ...drivers.data
+          .filter(driver=>{
+            if(driver.salary == "Bậc 1" || driver.salary == "Bậc 2" || driver.salary =="Bậc 3" ){
+              return  parseInt(driver.salaryReceive) + 2 == key
+            }else{
+              return  parseInt(driver.salaryReceive) + 3 == key
+            }
+          })
+      ]
+    }, 'template4.docx')
+  };
   function handleChangePage(event, newPage) {
     setPage(newPage);
   }
@@ -419,6 +240,9 @@ function FilterLevel(props) {
     }
   }, [value]);
   return (
+    <div
+    style={{display: 'flex', justifyContent: 'center', alignItems:'center', flexDirection: 'column'}}
+    >
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
       <Typography style={{ textAlign: 'center' }} variant="h5">
@@ -509,6 +333,33 @@ function FilterLevel(props) {
         />{' '}
       </div>{' '}
     </Paper>
+    <Button
+    variant="outlined"
+    style = {{marginTop: 20}}
+    size="small"
+    color="primary"
+    className={classes.margin}
+    onClick={handleExport}
+  >
+    Xuất ra văn bản
+  </Button>
+<Dialog
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="alert-dialog-title"
+  aria-describedby="alert-dialog-description"
+>
+  <DialogTitle id="alert-dialog-title" style={{ textAlign: 'center' }}>
+  {`Đã xuất ra văn bản. Truy cập đường dẫn C:/QLXM-HĐVT/Output để tìm file mới tạo. Cảm ơn!`}
+  </DialogTitle>
+
+  <DialogActions>
+    <Button onClick={handleClose} color="primary">
+      Đã rõ
+    </Button>
+  </DialogActions>
+</Dialog>
+</div>
   );
 }
 export default FilterLevel;

@@ -279,6 +279,7 @@ function Equiment(props) {
         setOpen={setOpen}
         updateData={updateData}
         updateVehicle={updateVehicle}
+        selectVehicle={selectVehicle}
       />
     </Paper>
   );

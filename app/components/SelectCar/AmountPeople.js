@@ -8,7 +8,7 @@ const AmountPeople = (props)=>{
     }
     return(
         <div>
-            <Typography>Số người cần vận chuyển (Nếu vận chuyển vật chất thì bỏ qua bước này)</Typography>
+            <Typography>Số bộ đội cần cơ động (Nếu vận chuyển vật chất thì bỏ qua bước này)</Typography>
             <TextField
                 onChange={handleChange}
                 id="standard-full-width"

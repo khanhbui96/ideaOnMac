@@ -11,7 +11,6 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {DoneOutline} from '@material-ui/icons';
 import Button from '@material-ui/core/Button'
@@ -44,12 +43,8 @@ const useStyles = makeStyles(theme => ({
 function Car(props) {
   const classes = useStyles();
   const {vehicle} = props;
-  const [expanded, setExpanded] = React.useState(false);
   
 
-  function handleExpandClick() {
-    setExpanded(!expanded);
-  }
 
   return (
     <Card className={classes.card}>
@@ -87,59 +82,9 @@ function Car(props) {
         Chọn phương tiện
       </Button>
         
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          style={{float: 'right'}}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
+        
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph style={{textAlign: 'center'}}>Thông tin</Typography>
-          <Typography paragraph>
-            {`Số đăng kí: ${vehicle.number}`}
-          </Typography>
-          <Typography paragraph>
-          {`Thời gian đăng kí: ${vehicle.date}`}
-          </Typography>
-          <Typography paragraph>
-          {`Loại xe: ${vehicle.type}`}
-          </Typography>
-          <Typography paragraph>
-          {`Nhãn xe chuyên dùng: ${vehicle.brand}`}
-          </Typography>
-          <Typography paragraph>
-          {`Số khung: ${vehicle.chassis}`}
-          </Typography>
-          <Typography paragraph>
-          {`Số máy: ${vehicle.engine}`}
-          </Typography>
-          <Typography paragraph>
-          {`Năm sản xuất: ${vehicle.stateDate}`}
-          </Typography>
-          <Typography paragraph>
-          {`Nguồn gốc: ${vehicle.sourse}`}
-          </Typography>
-          <Typography paragraph>
-          {`Biên chế đơn vị: ${vehicle.owned}`}
-          </Typography>
-          <Typography paragraph>
-          {`Phân cấp : ${vehicle.level}`}
-          </Typography>
-          <Typography paragraph>
-          {`Trạng thái sử dụng: ${vehicle.status}`}
-          </Typography>
-          <Typography paragraph>
-          {`Làm nhiệm vụ: ${vehicle.uses}`}
-          </Typography>
-        </CardContent>
-      </Collapse>
+      
     </Card>
   );
 }
@@ -180,17 +125,27 @@ const Result = (props)=>{
             return vehicle
       }})
     
+    // let volumeVehicles = abilityVehicles.filter(vehicle=>{
+    //   console.log(choose.infors.volume)
+    //   if(choose.infors.volume == 'Đã bỏ qua'){
+    //     return vehicle
+    //   }else if (choose.infors.volume <= 2 ){
+    //     console.log(parseInt(vehicle.limit))
+    //     console.log(vehicle.limit <= 2)
+    //     return vehicle.limit <= 2
+    //   }else if (choose.infors.volume <= 5 ){
+    //     return vehicle.limit <= 5 && vehicle.limit > 2
+    //   } else {
+    //     return vehicle.limit > 5
+    //   }
+    // });
     let volumeVehicles = abilityVehicles.filter(vehicle=>{
       if(choose.infors.volume == 'Đã bỏ qua'){
         return vehicle
-      }else if (choose.infors.volume <= 2 ){
-        return vehicle.limit <= 2
-      }else if (choose.infors.volume <= 5 ){
-        return vehicle.limit <= 5 && vehicle.limit > 2
-      } else {
-        return vehicle.limit > 5
+      }else {
+        return vehicle.limit = choose.infors.volume || vehicle.limit > choose.infors.volume
       }
-    });
+    }).sort((a, b)=> a.limit - b.limit);
     let amountVehicles = volumeVehicles.filter(vehicle=>{
       if(choose.infors.amount == 'Đã bỏ qua'){
         return vehicle
@@ -211,20 +166,33 @@ const Result = (props)=>{
     })
   }
     return(
-        <div>
-           <Typography>Nhu cầu lựa chọn là:</Typography>
-           <Typography>{`+ Đối tương: ${choose.infors.object}`}</Typography>
-           <Typography>{`+ Nhiên liệu sử dụng: ${choose.infors.fuel}`} </Typography>
-           <Typography>{`+ Khả năng thông qua: ${choose.infors.ability}`} </Typography>
-           <Typography>{`+ Khối lượng vận chuyển: ${choose.infors.volume} tấn`}</Typography>
-           <Typography>{`+ Khối lượng vận chuyển: ${choose.infors.amount} tấn`}</Typography>
-            <Typography>Như vậy những phương tiện phù hợp là:</Typography>
-            <Container style={{flexGrow: 1, marginTop: 20}}>
-                <Grid container spacing={3} style={{display: "flex", justifyContent: 'space-around', alignItem: 'center'}}>
+        <div style={{ 
+          display: 'flex',
+          flexDirection: 'column', 
+          justifyContent: 'center', 
+          alignItems: 'center'}}>
+           <div>
+            <Typography>Nhu cầu lựa chọn là:</Typography>
+            <Typography>{`+ Đối tương: ${choose.infors.object}`}</Typography>
+            <Typography>{`+ Nhiên liệu sử dụng: ${choose.infors.fuel}`} </Typography>
+            <Typography>{`+ Khả năng thông qua: ${choose.infors.ability}`} </Typography>
+            <Typography>{`+ Khối lượng cần vận chuyển: ${choose.infors.volume} tấn`}</Typography>
+            <Typography>{`+ Số lượng cần cơ động: ${choose.infors.amount} bộ đội`}</Typography>
+              <Typography>Như vậy những phương tiện phù hợp là:</Typography>
+           </div>
+            <div
+              style={{
+                marginTop: 30
+              }}
+            >
+                <Grid container spacing={1} style={{ 
+          display: 'flex',
+          flexDirection: 'row', 
+          justifyContent: 'center', 
+          alignItems: 'center'}}>
                     {filterVehicles(vehicles.data)}
-                    
                 </Grid>
-            </Container>
+                </div>
         </div>
     )
 };

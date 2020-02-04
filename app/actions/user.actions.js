@@ -24,8 +24,7 @@ export const loginUser = (data, func1) => async dispatch=>{
         await localStorage.setItem('jwt', User.data.token);
         await func1(User.data.type);
     }catch(err){
-        console.log(err)
-        // await dispatch(getErrs(err.response.data))
+        await dispatch(getErrs(err.response.data))
     }
 
 };

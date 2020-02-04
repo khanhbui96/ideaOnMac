@@ -49,8 +49,16 @@ const CreateCommand = (props) => {
     setOpen(false);
   };
   const handleExport = ()=>{
-    renderToDocx({...data});
     setOpen(true)
+    renderToDocx({...data,
+      DD: data.time.slice(8,10),
+      MM: data.time.slice(5,7),
+      YYYY: data.time.slice(0,4),
+      HH: data.time.slice(11,13),
+      mm: data.time.slice(14,16),
+    
+    }, 'template1.docx');
+    
   }
   const createCommand = ()=>{
     addCommand({...data, status: true },(v)=>{
@@ -290,7 +298,7 @@ const CreateCommand = (props) => {
               }}
             >
               <TextField
-                style={{ width: '100%', marginBottom: 24 }}
+                style={{ width: '100%', marginBottom: 24, marginRight: 10 }}
                 label="Tổng Km"
                 name="result"
                 value={data.result}
@@ -385,7 +393,7 @@ const CreateCommand = (props) => {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title" style={{ textAlign: 'center' }}>
-            {`Đã xuât ra văn bản. Truy cập đường dẫn C:/ để mở file có tên ${data.license}${data.time.slice(0,10)}.docx. Cảm ơn!`}
+          {`Đã xuất ra văn bản. Truy cập đường dẫn C:/QLXM-HĐVT/Output để tìm file mới tạo. Cảm ơn!`}
           </DialogTitle>
 
           <DialogActions>
